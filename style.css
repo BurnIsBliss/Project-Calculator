@@ -1,0 +1,58 @@
+body{
+    background-color: black;
+}
+
+.mainContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+}
+
+.calculatorBox{
+    border: 2px solid white;
+    border-radius: 8px;
+    height: 520px;
+    width: 420px;
+    display: flex;
+    padding: 8px;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.displayScreen{
+    border: 2px solid white;
+    border-radius: 8px;
+    height: 120px;
+    width: auto;
+}
+
+.calculatorButtons{
+    height: 350px;
+    border: 2px solid white;
+    border-radius: 8px;
+    display: flex;
+    padding: 8px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.calculatorBottomButtons{
+    border: 2px solid white;
+    border-radius: 8px;
+    height: 80px;
+    display: flex;
+}
+
+.buttonContainer{
+    display: flex;
+    gap: 8px;
+}
+
+.buttons{
+    flex: 1;
+    height: 60px;
+    width: 26px;
+    border: 2px solid white;
+    border-radius: 8px;
+}
