@@ -1,5 +1,6 @@
 body{
     background-color: black;
+    font-family: "Roboto", sans-serif;
 }
 
 .mainContainer{
@@ -13,7 +14,7 @@ body{
     border: 2px solid white;
     border-radius: 8px;
     height: 520px;
-    width: 420px;
+    width: 335px;
     display: flex;
     padding: 8px;
     flex-direction: column;
@@ -32,16 +33,9 @@ body{
     border: 2px solid white;
     border-radius: 8px;
     display: flex;
-    padding: 8px;
+    padding: 10px;
     flex-direction: column;
     justify-content: space-between;
-}
-
-.calculatorBottomButtons{
-    border: 2px solid white;
-    border-radius: 8px;
-    height: 80px;
-    display: flex;
 }
 
 .buttonContainer{
@@ -55,4 +49,35 @@ body{
     width: 26px;
     border: 2px solid white;
     border-radius: 8px;
+    color: white;
+    font-size: xx-large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculatorBottomButtons{
+    border: 2px solid white;
+    border-radius: 8px;
+    height: 80px;
+    padding: 8px;
+    display: flex;
+    gap: 8px;
+}
+
+.allClear,
+.clearEntry{
+    border: 2px solid white;
+    border-radius: 8px;
+    flex:1;
+    color: white;
+    height: auto;
+    font-size: xx-large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons.buttonNo4{
+    background-color: orange;
 }
