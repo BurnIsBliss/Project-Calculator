@@ -1,6 +1,6 @@
 body{
     background-color: black;
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto", sans-serif, 'Times New Roman', Times, serif;
 }
 
 .mainContainer{
@@ -24,13 +24,18 @@ body{
 .displayScreen{
     border: 2px solid white;
     border-radius: 8px;
-    height: 120px;
+    height: 130px;
     width: auto;
+    color: white;
+    font-size: 45px;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    padding: 0px 8px 0px 8px;
 }
 
 .calculatorButtons{
     height: 350px;
-    border: 2px solid white;
     border-radius: 8px;
     display: flex;
     padding: 10px;
@@ -57,7 +62,6 @@ body{
 }
 
 .calculatorBottomButtons{
-    border: 2px solid white;
     border-radius: 8px;
     height: 80px;
     padding: 8px;
@@ -78,6 +82,10 @@ body{
     align-items: center;
 }
 
-.buttons.buttonNo4{
+.buttonNo4, .buttonNo8, .buttonNo12, .buttonNo16{
     background-color: orange;
+}
+
+.buttonNo15{
+    background-color: red;
 }
