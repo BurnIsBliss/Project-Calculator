@@ -25,42 +25,64 @@ for (let i = 0; i<4; i++){
 })();
 
 // adding functionality to the buttons
-let expression = '';
+let finalExpression = ''; let firstNumber = ''; let secondNumber = ''; let mathOperator = '';
 const buttonContainer = document.querySelectorAll(".buttons");
 buttonContainer.forEach((button) => {button.addEventListener("click", () => {if (button.textContent == '=') {
-    if (expression.includes('+')) {
+    finalExpression = firstNumber+mathOperator+secondNumber;
+    if (finalExpression.includes('+')) {
         evaluateAndDisplayFinalContent('+');
     }
-    else if (expression.includes('-')) {
+    else if (finalExpression.includes('-')) {
         evaluateAndDisplayFinalContent('-');
     }
-    else if (expression.includes('*')) {
+    else if (finalExpression.includes('*')) {
         evaluateAndDisplayFinalContent('*');
     }
-    else if (expression.includes('÷')) {
+    else if (finalExpression.includes('÷')) {
         evaluateAndDisplayFinalContent('÷');
     }
     else{
         console.log("Incomplete Expression");
     }
 }
-else
-{displayContent(button.textContent)}})});
-buttonContainer.forEach((button) => {button.addEventListener("mouseenter", () => {button.style.opacity=0.65;} )});
-buttonContainer.forEach((button) => {button.addEventListener("mouseout", () => {button.style.opacity=1;} )});
+else if (button.textContent=='+' || button.textContent=='-' || button.textContent=='÷' || button.textContent=='*'){
+    mathOperator = button.textContent;
+}
+else if (firstNumber.length < 12 && secondNumber.length < 12)
+{   
+    displayContent(button.textContent);
+}
+else {
+    console.log("Length Exceeded!");
+}
+})});
+// code to set the opacity for button hover
+buttonContainer.forEach((button) => {button.addEventListener("mouseenter", () => {button.style.opacity=0.65;})});
+buttonContainer.forEach((button) => {button.addEventListener("mouseout", () => {button.style.opacity=1;})});
 //function to display the content within the displayScreen and to call the appropriate operate action
 function displayContent(content){
-    expression+=content;
     const displayScreen = document.querySelector(".displayScreen");
-    displayScreen.innerHTML = expression;
+    console.log(firstNumber, mathOperator, secondNumber);
+    if (mathOperator.length == 0){
+        if (!(content == '.' && (firstNumber.split('.').length == 2)))
+        firstNumber+=content;
+        displayScreen.innerHTML = firstNumber;
+    }
+    if (mathOperator.length == 1){
+        if (!(content == '.' && (secondNumber.split('.').length == 2)))
+        secondNumber+=content;
+        displayScreen.innerHTML = secondNumber;
+    }
+
 }
 
 function evaluateAndDisplayFinalContent(operator){
-    let splitExpression=expression.split(operator);
+    let splitExpression=finalExpression.split(operator);
     let final = Operate(Number(splitExpression[0]), operator, Number(splitExpression[1]));
     const displayScreen = document.querySelector(".displayScreen");
     displayScreen.innerHTML = final;
-    expression='';
+    finalExpression='';
+    mathOperator='';
 }
 
 
@@ -106,18 +128,22 @@ function division(a, b){
 // functionality for the CE and AC buttons and the change in opacity to highlight the button
 const CEButton = document.querySelector(".clearEntry");
 CEButton.addEventListener("click", () => {
-    if(expression.length !=0){
-        expression=expression.slice(0,(expression.length-1));
-    }
     const displayScreen = document.querySelector(".displayScreen");
-    displayScreen.innerHTML = expression;
+    if (mathOperator.length == 0 && firstNumber.length != 0){
+        firstNumber=firstNumber.slice(0,(firstNumber.length-1));
+        displayScreen.innerHTML = firstNumber;
+    }
+    if (mathOperator.length == 1 && secondNumber.length != 0){
+        secondNumber=secondNumber.slice(0,(secondNumber.length-1));
+        displayScreen.innerHTML = secondNumber;
+    }
 })
 
 const ACButton = document.querySelector(".allClear");
 ACButton.addEventListener("click", () => {
-    expression='';
+    finalExpression=firstNumber=secondNumber=mathOperator='';
     const displayScreen = document.querySelector(".displayScreen");
-    displayScreen.innerHTML = expression;
+    displayScreen.innerHTML = finalExpression;
 }
 )
 
