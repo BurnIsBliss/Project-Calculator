@@ -1,6 +1,6 @@
 const calBox = document.querySelector(".calculatorButtons");
 
-// Loop to create the buttons inside calculatorButtons
+// Loop to create the buttons inside th container calculatorButtons
 let count = 1;
 for (let i = 0; i<4; i++){
     const calButtonsContainer = document.createElement("div");
@@ -25,7 +25,7 @@ for (let i = 0; i<4; i++){
 })();
 
 // adding functionality to the buttons
-let expression = ''
+let expression = '';
 const buttonContainer = document.querySelectorAll(".buttons");
 buttonContainer.forEach((button) => {button.addEventListener("click", () => {if (button.textContent == '=') {
     if (expression.includes('+')) {
@@ -39,6 +39,9 @@ buttonContainer.forEach((button) => {button.addEventListener("click", () => {if 
     }
     else if (expression.includes('÷')) {
         evaluateAndDisplayFinalContent('÷');
+    }
+    else{
+        console.log("Incomplete Expression");
     }
 }
 else
@@ -61,7 +64,7 @@ function evaluateAndDisplayFinalContent(operator){
 }
 
 
-// function Operate (), this function call the corresponding according to the chosen operator
+// function Operate (), this function calls the corresponding according to the chosen operator
 function Operate (number1, operator, number2){
     let val;
     switch (operator){
@@ -100,11 +103,26 @@ function division(a, b){
     return a/b;
 }
 
-// functionality for the CE and AC buttons
+// functionality for the CE and AC buttons and the change in opacity to highlight the button
 const CEButton = document.querySelector(".clearEntry");
 CEButton.addEventListener("click", () => {
     if(expression.length !=0){
         expression=expression.slice(0,(expression.length-1));
     }
-    console.log(expression);
+    const displayScreen = document.querySelector(".displayScreen");
+    displayScreen.innerHTML = expression;
 })
+
+const ACButton = document.querySelector(".allClear");
+ACButton.addEventListener("click", () => {
+    expression='';
+    const displayScreen = document.querySelector(".displayScreen");
+    displayScreen.innerHTML = expression;
+}
+)
+
+CEButton.addEventListener("mouseenter", () => {CEButton.style.opacity=0.65;});
+CEButton.addEventListener("mouseout", () => {CEButton.style.opacity=1;});
+
+ACButton.addEventListener("mouseenter", () => {ACButton.style.opacity=0.65;} );
+ACButton.addEventListener("mouseout", () => {ACButton.style.opacity=1;});
