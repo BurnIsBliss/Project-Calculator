@@ -25,7 +25,7 @@ for (let i = 0; i<4; i++){
 })();
 
 // adding functionality to the buttons
-let finalExpression = ''; let firstNumber = ''; let secondNumber = ''; let mathOperator = '';
+let finalExpression = ''; let firstNumber = ''; let secondNumber = ''; let mathOperator = ''; let secondMathOperator = '';
 const buttonContainer = document.querySelectorAll(".buttons");
 buttonContainer.forEach((button) => {button.addEventListener("click", () => {if (button.textContent == '=') {
     finalExpression = firstNumber+mathOperator+secondNumber;
@@ -42,23 +42,47 @@ buttonContainer.forEach((button) => {button.addEventListener("click", () => {if 
         evaluateAndDisplayFinalContent('÷');
     }
     else{
-        console.log("Incomplete Expression");
+        console.log("Incomplete Expression #1");
     }
 }
 else if (button.textContent=='+' || button.textContent=='-' || button.textContent=='÷' || button.textContent=='*'){
-    mathOperator = button.textContent;
+    if (mathOperator.length == 0){
+        mathOperator = button.textContent;
+    }
+    else if (mathOperator.length==1){
+        secondMathOperator = button.textContent;
+        finalExpression = firstNumber+mathOperator+secondNumber;
+        if (finalExpression.includes('+')) {
+            evaluateAndDisplayFinalContent('+');
+        }
+        else if (finalExpression.includes('-')) {
+            evaluateAndDisplayFinalContent('-');
+        }
+        else if (finalExpression.includes('*')) {
+            evaluateAndDisplayFinalContent('*');
+        }
+        else if (finalExpression.includes('÷')) {
+            evaluateAndDisplayFinalContent('÷');
+        }
+        else{
+            console.log("Incomplete Expression #2");
+        }
+    }
 }
-else if (firstNumber.length < 12 && secondNumber.length < 12)
+else if (String(firstNumber).length < 12 && String(secondNumber).length < 12)
 {   
     displayContent(button.textContent);
 }
 else {
+    console.log(firstNumber, secondNumber);
     console.log("Length Exceeded!");
 }
 })});
+
 // code to set the opacity for button hover
 buttonContainer.forEach((button) => {button.addEventListener("mouseenter", () => {button.style.opacity=0.65;})});
 buttonContainer.forEach((button) => {button.addEventListener("mouseout", () => {button.style.opacity=1;})});
+
 //function to display the content within the displayScreen and to call the appropriate operate action
 function displayContent(content){
     const displayScreen = document.querySelector(".displayScreen");
@@ -73,16 +97,24 @@ function displayContent(content){
         secondNumber+=content;
         displayScreen.innerHTML = secondNumber;
     }
-
 }
 
 function evaluateAndDisplayFinalContent(operator){
     let splitExpression=finalExpression.split(operator);
     let final = Operate(Number(splitExpression[0]), operator, Number(splitExpression[1]));
     const displayScreen = document.querySelector(".displayScreen");
-    displayScreen.innerHTML = final;
-    finalExpression='';
-    mathOperator='';
+    stringFinal = String(final);
+    displayScreen.innerHTML = stringFinal.slice(0,12);
+    if(secondMathOperator.length==1){
+        firstNumber=stringFinal.slice(0,11);
+        secondNumber='';
+        mathOperator=secondMathOperator;
+        secondMathOperator='';
+    }
+    else{
+        firstNumber=stringFinal.slice(0,11);
+        finalExpression=mathOperator=secondNumber=secondMathOperator='';
+    }
 }
 
 
@@ -122,7 +154,8 @@ function multiply(a, b){
 }
 
 function division(a, b){
-    return a/b;
+    if(b) return a/b;
+    else return "3rr0r";
 }
 
 // functionality for the CE and AC buttons and the change in opacity to highlight the button
@@ -131,22 +164,29 @@ CEButton.addEventListener("click", () => {
     const displayScreen = document.querySelector(".displayScreen");
     if (mathOperator.length == 0 && firstNumber.length != 0){
         firstNumber=firstNumber.slice(0,(firstNumber.length-1));
-        displayScreen.innerHTML = firstNumber;
+        if (firstNumber.length == 0){
+            displayScreen.innerHTML = '0';
+        }
+        else displayScreen.innerHTML = firstNumber;
     }
     if (mathOperator.length == 1 && secondNumber.length != 0){
         secondNumber=secondNumber.slice(0,(secondNumber.length-1));
-        displayScreen.innerHTML = secondNumber;
+        if (secondNumber.length==0){
+            displayScreen.innerHTML = '0';
+        }
+        else displayScreen.innerHTML = secondNumber;
     }
 })
 
 const ACButton = document.querySelector(".allClear");
 ACButton.addEventListener("click", () => {
-    finalExpression=firstNumber=secondNumber=mathOperator='';
+    finalExpression=firstNumber=secondNumber=mathOperator=secondMathOperator='';
     const displayScreen = document.querySelector(".displayScreen");
-    displayScreen.innerHTML = finalExpression;
+    displayScreen.innerHTML = '0';
 }
 )
 
+// hover animation fot CE and AC buttons
 CEButton.addEventListener("mouseenter", () => {CEButton.style.opacity=0.65;});
 CEButton.addEventListener("mouseout", () => {CEButton.style.opacity=1;});
 
